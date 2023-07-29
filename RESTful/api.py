@@ -1,10 +1,23 @@
 import requests
+from dotenv import load_dotenv
+
+# load_dotenv
 
 url = 'https://randomuser.me/api'
-
-responds =  requests.get(url)
-if(responds.status_code):
+result = {}
+try:
+    responds =  requests.get(url)
     result = responds.json()
-gender = result["results"][0]['gender']
-print(gender)
+except Exception as e:
+    print('Bad Request! check url')
+  
+if(result != {}):
+    age = result["results"][0]['dob']['age']
+    name = result["results"][0]['name']["first"]
+    # print(age)
+    if(age >= 18):
+        print('Hello '+name+ ' You can drive')    
+    else:
+        print('Hello ' +name+'!')
+
     
